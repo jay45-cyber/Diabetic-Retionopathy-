@@ -35,6 +35,8 @@ models/checkpoints/
 outputs/figures/
 outputs/predictions/
 outputs/explainability/
+outputs/dr_experiments/
+outputs/explanations/
 
 # Logs and system
 *.log

@@ -61,9 +61,12 @@ class GradCAMPlusPlus:
 
     def overlay_on_image(self, original_image: Image.Image, cam: np.ndarray, alpha: float = 0.4) -> Image.Image:
         """Overlay normalized CAM heatmap onto original fundus photograph."""
-        import matplotlib.cm as cm
-
-        colormap = cm.get_cmap("jet")
+        try:
+            import matplotlib.pyplot as plt
+            colormap = plt.get_cmap("jet")
+        except Exception:
+            import matplotlib.cm as cm
+            colormap = cm.get_cmap("jet")
         heatmap = colormap(cam)[:, :, :3] # Discard alpha
         heatmap = (heatmap * 255).astype(np.uint8)
         heatmap_img = Image.fromarray(heatmap).resize(original_image.size, Image.Resampling.LANCZOS)
