@@ -225,3 +225,4 @@ def test_dr_trainer_smoke(dummy_retinal_environment):
     history = trainer.fit(epochs=1)
     assert len(history["train_loss"]) == 1
     assert (ckpt_dir / "resnet50_test_best.pt").is_file()
+

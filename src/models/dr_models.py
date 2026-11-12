@@ -105,3 +105,4 @@ def build_dr_model(
     else:
         # Fallback to general timm model creation
         return timm.create_model(model_name, pretrained=pretrained, num_classes=num_classes, drop_rate=dropout_rate)
+

@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.2.0] - 2026-11-12
+### Added
+- **5-Class DR Grading Pipeline**: Implemented `src/data/dr_dataset.py` supporting APTOS 2019 five-class severity standard (0: No DR, 1: Mild, 2: Moderate, 3: Severe, 4: Proliferative), circular fundus cropping, luminance CLAHE, and normalized inverse-frequency class weighting.
+- **Stratified Splitting**: Built deterministic 70% Train / 15% Val / 15% Test split (`create_stratified_dr_splits`) with fixed random seed (42) and duplicate perceptual hash prevention.
+- **Model Architecture Zoo**: Added `src/models/dr_models.py` implementing `ViTDR` (ViT-B/16), `ResNet50DR`, `SwinTransformerDR`, and model factory `build_dr_model()`.
+- **Upgraded Trainer**: Added `src/training/dr_trainer.py` (`DRTrainer`) featuring AdamW optimizer, Cosine Annealing learning rate schedule, mixed-precision `torch.amp.autocast` with CPU fallback, gradient clipping, early stopping tracking Validation Macro-F1 (patience = 5), and checkpoint saving to `models/checkpoints/`.
+- **Clinical Evaluation Suite**: Implemented `src/evaluation/dr_metrics.py` computing Accuracy, Macro/Weighted F1, Quadratic Weighted Kappa (QWK), Referable DR Sensitivity/Specificity (Grade >= 2), One-vs-Rest AUROC, Multi-Class Expected Calibration Error (ECE), and 95% bootstrap confidence intervals.
+- **Automated Artifacts Generator**: Automated export of `metrics.json`, `classification_report.csv`, `confusion_matrix.png`, and `evaluation_summary.txt`.
+- **Explainable AI Suite**: Implemented `src/explainability/dr_explainer.py` supporting ResNet-50 Grad-CAM, ViT Attention Rollout across 12 transformer blocks, ViT Token Grad-CAM ($14 \times 14$ grid), Swin Window Grad-CAM, and class-targeted Integrated Gradients.
+- **CLI Scripts**: Added `scripts/train_dr_model.py`, `scripts/evaluate_dr_model.py`, and `scripts/generate_explanations.py`.
+- **Automated Tests**: Added `tests/test_dr_pipeline.py` with 7 comprehensive unit/integration tests; entire repository test suite expanded to 27 tests passing with 100% success rate.
+- **Comprehensive Documentation**: Published 21-section final research handover report at `docs/project_management/final_project_report.md` and upgraded `README.md`.
+
+---
+
 ## [0.1.0] - 2026-11-01
 ### Added
 - **Phase 0 Baseline**: Initialized workspace, completed hardware and software audit (`docs/WORKSPACE_AUDIT.md`).

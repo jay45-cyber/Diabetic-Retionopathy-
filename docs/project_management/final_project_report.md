@@ -243,3 +243,4 @@ An automated, assistive AI system must provide reliable multi-stage grading (Gra
 - [x] Complete automated test suite with 27 unit & integration tests passing 100% (`tests/test_dr_pipeline.py`).
 - [x] Upgraded comprehensive `README.md`.
 - [x] Clean Git working tree with zero untracked artifacts, credentials, or PHI.
+
