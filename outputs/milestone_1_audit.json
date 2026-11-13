@@ -1,0 +1,147 @@
+{
+  "inventory": {
+    "APTOS_2019": {
+      "full_name": "APTOS 2019 Blindness Detection",
+      "status": "NOT_DOWNLOADED",
+      "image_dir": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\aptos_2019",
+      "metadata_csv": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\aptos_2019\\train.csv",
+      "images_found": 0,
+      "access_requirement": "Kaggle Account & Competition Rules Acceptance",
+      "track_a_eligible": true,
+      "track_b_eligible": false,
+      "notes": "Diabetic clinic recruitment. Grade 0 != Non-diabetic control. Auxiliary DR representation only."
+    },
+    "BRSET": {
+      "full_name": "Brazilian Retinal Screening Dataset",
+      "status": "NOT_DOWNLOADED",
+      "image_dir": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\brset",
+      "metadata_csv": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\brset\\labels.csv",
+      "images_found": 0,
+      "access_requirement": "PhysioNet Credentialed Access (CITI Training, Data Use Agreement)",
+      "track_a_eligible": true,
+      "track_b_eligible": true,
+      "notes": "EHR-confirmed diabetes status. Bilateral OD/OS, ICDR grades. Primary Track B candidate."
+    },
+    "IDRiD": {
+      "full_name": "Indian Diabetic Retinopathy Image Dataset",
+      "status": "NOT_DOWNLOADED",
+      "image_dir": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\idrid",
+      "metadata_csv": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\idrid\\labels.csv",
+      "images_found": 0,
+      "access_requirement": "IEEE Dataport Registration / Download",
+      "track_a_eligible": true,
+      "track_b_eligible": false,
+      "notes": "Diabetic cohort. High-resolution Indian clinic images. Auxiliary DR representation only."
+    },
+    "Messidor_2": {
+      "full_name": "Messidor-2 Retinal Image Dataset",
+      "status": "NOT_DOWNLOADED",
+      "image_dir": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\messidor_2",
+      "metadata_csv": "C:\\Users\\Jay\\projects\\project_ML\\data\\raw\\messidor_2\\messidor2_data.csv",
+      "images_found": 0,
+      "access_requirement": "Messidor Research Permission Agreement",
+      "track_a_eligible": true,
+      "track_b_eligible": false,
+      "notes": "External validation benchmark for DR and DME grading."
+    }
+  },
+  "manifest_audit": {
+    "total_records": 22,
+    "patient_metrics": {
+      "unique_patients": 12,
+      "missing_patient_ids": 0,
+      "patient_id_completeness_pct": 100.0,
+      "avg_images_per_patient": 1.83,
+      "conflicting_patient_labels_count": 0,
+      "conflicting_patient_ids": []
+    },
+    "provenance_breakdown": {
+      "tier_counts": {
+        "LABORATORY_CONFIRMED": 10,
+        "CLINICIAN_DOCUMENTED": 10,
+        "SELF_REPORTED": 1,
+        "UNKNOWN": 1,
+        "INVALID_DR_INFERRED": 0
+      },
+      "valid_track_b_candidates": 21,
+      "dr0_diabetic_targets": 5,
+      "prohibited_dr_inferred_count": 0,
+      "unknown_label_count": 1
+    },
+    "distributions": {
+      "dr_grades": {
+        "0": 11,
+        "2": 6,
+        "1": 5
+      },
+      "diabetes_status": {
+        "1.0": 11,
+        "0.0": 10,
+        "nan": 1
+      },
+      "eye_side": {
+        "OD": 12,
+        "OS": 10
+      }
+    },
+    "duplicate_audit": {
+      "files_checked": 22,
+      "exact_duplicate_pairs": 1,
+      "perceptual_duplicate_pairs": 0,
+      "sample_exact_dups": [
+        [
+          "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\audit_p999.png",
+          "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\audit_p998.png"
+        ]
+      ],
+      "sample_perceptual_dups": []
+    },
+    "quality_audit": {
+      "files_checked": 22,
+      "ungradable_count": 22,
+      "ungradable_pct": 100.0,
+      "sample_failures": [
+        {
+          "path": "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\PATIENT_000_OD.png",
+          "reasons": [
+            "Insufficient dimensions"
+          ]
+        },
+        {
+          "path": "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\PATIENT_000_OS.png",
+          "reasons": [
+            "Insufficient dimensions"
+          ]
+        },
+        {
+          "path": "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\PATIENT_001_OD.png",
+          "reasons": [
+            "Insufficient dimensions"
+          ]
+        },
+        {
+          "path": "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\PATIENT_001_OS.png",
+          "reasons": [
+            "Insufficient dimensions"
+          ]
+        },
+        {
+          "path": "C:\\Users\\Jay\\projects\\project_ML\\data\\interim\\audit_smoke_test\\audit_synthetic_images\\PATIENT_002_OD.png",
+          "reasons": [
+            "Insufficient dimensions"
+          ]
+        }
+      ]
+    },
+    "leakage_risks": [],
+    "eligibility": {
+      "track_a_dr_grading_eligible": true,
+      "track_b_diabetes_screening_eligible": true,
+      "supports_dr0_preclinical_analysis": true
+    },
+    "target_leakage_audit": {
+      "detected_leaking_columns": [],
+      "has_leakage": false
+    }
+  }
+}

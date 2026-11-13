@@ -32,8 +32,13 @@ models/checkpoints/
 *.ckpt
 
 # Output artifacts
-outputs/
+outputs/*
 !outputs/.gitkeep
+!outputs/figures/
+!outputs/figures/*
+!outputs/metrics/
+!outputs/metrics/*
+!outputs/milestone_1_*
 
 # Logs and system
 *.log
