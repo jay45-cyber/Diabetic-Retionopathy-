@@ -32,11 +32,8 @@ models/checkpoints/
 *.ckpt
 
 # Output artifacts
-outputs/figures/
-outputs/predictions/
-outputs/explainability/
-outputs/dr_experiments/
-outputs/explanations/
+outputs/
+!outputs/.gitkeep
 
 # Logs and system
 *.log

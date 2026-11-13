@@ -6,16 +6,37 @@ from sklearn.metrics import roc_auc_score, average_precision_score, brier_score_
 
 
 def compute_patient_bootstrap_ci(
-    df: pd.DataFrame,
-    patient_col: str = "participant_id",
-    y_true_col: str = "diabetes_label",
+    data_or_pids: Any,
+    y_true_or_patient_col: Any = "participant_id",
+    y_prob_or_y_true_col: Any = "diabetes_label",
     y_prob_col: str = "pred_prob",
     n_bootstraps: int = 1000,
     confidence_level: float = 0.95,
-    random_seed: int = 42
-) -> Dict[str, Tuple[float, float]]:
-    """Compute empirical 95% bootstrap confidence intervals by resampling unique patients."""
+    random_seed: int = 42,
+    **kwargs
+) -> Dict[str, Any]:
+    """Compute empirical 95% bootstrap confidence intervals by resampling unique patients.
+    
+    Supports both DataFrame input and array-based input (patient_ids, y_true, y_prob).
+    """
+    n_bootstraps = kwargs.get("n_iterations", n_bootstraps)
+    random_seed = kwargs.get("seed", random_seed)
     rng = np.random.RandomState(random_seed)
+
+    if isinstance(data_or_pids, pd.DataFrame):
+        df = data_or_pids
+        patient_col = y_true_or_patient_col
+        y_true_col = y_prob_or_y_true_col
+    else:
+        patient_col = "participant_id"
+        y_true_col = "diabetes_label"
+        y_prob_col = "pred_prob"
+        df = pd.DataFrame({
+            patient_col: data_or_pids,
+            y_true_col: y_true_or_patient_col,
+            y_prob_col: y_prob_or_y_true_col
+        })
+
     unique_patients = df[patient_col].unique()
     n_patients = len(unique_patients)
 
@@ -57,10 +78,20 @@ def compute_patient_bootstrap_ci(
             round(float(np.percentile(scores, alpha_high)), 4)
         )
 
+    auroc_ci = get_ci(auroc_scores)
+    auprc_ci = get_ci(auprc_scores)
+    brier_ci = get_ci(brier_scores)
+    auroc_mean = round(float(np.mean(auroc_scores)), 4) if auroc_scores else float("nan")
+    auprc_mean = round(float(np.mean(auprc_scores)), 4) if auprc_scores else float("nan")
+    brier_mean = round(float(np.mean(brier_scores)), 4) if brier_scores else float("nan")
+
     return {
-        "auroc_ci": get_ci(auroc_scores),
-        "auprc_ci": get_ci(auprc_scores),
-        "brier_ci": get_ci(brier_scores),
+        "auroc_ci": auroc_ci,
+        "auprc_ci": auprc_ci,
+        "brier_ci": brier_ci,
+        "auroc": {"mean": auroc_mean, "ci_lower": auroc_ci[0], "ci_upper": auroc_ci[1]},
+        "auprc": {"mean": auprc_mean, "ci_lower": auprc_ci[0], "ci_upper": auprc_ci[1]},
+        "brier": {"mean": brier_mean, "ci_lower": brier_ci[0], "ci_upper": brier_ci[1]},
         "n_bootstraps_completed": len(auroc_scores),
         "confidence_level": confidence_level
     }

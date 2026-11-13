@@ -1,38 +1,40 @@
-# Implementation Status Tracker (Phase 1 Continuation)
+# Implementation Status Tracker (Dual-Track Research Architecture)
 
 **Document**: `docs/development/implementation_status.md`  
-**Date**: 2026-11-12  
-**Overall Phase**: **PHASE 1 — CONTINUED RESEARCH ENGINEERING, DATA INTEGRATION, MODEL DEVELOPMENT AND FINAL RELEASE**  
+**Date**: 2026-11-13  
+**Status**: **COMPLETED & VERIFIED** (34/34 Automated Tests Passing)  
+**Overall Phase**: **PHASE 1 — CONTINUED RESEARCH ENGINEERING, DATA INTEGRATION, MODEL DEVELOPMENT AND FINAL RELEASE**
 
 ---
 
-## 60-Minute DR Implementation Plan Status Table
+## Dual-Track Architecture Overview
 
-| Phase | Milestone Title | Target Deliverables | Status | Verification Result |
+| Track | Objective | Primary Target | Models | Key Verification |
 | :--- | :--- | :--- | :--- | :--- |
-| **Phase 1** | Codebase Audit & Setup | Dependency audit, `timm` & `matplotlib` install, Python 3.11 verification | **COMPLETED** | Verified clean environment; 20/20 baseline tests passed. |
-| **Phase 2** | Reproducible Data Pipeline | `src/data/dr_dataset.py`, 5-class loading, circular crop, CLAHE, inverse class weights, 70/15/15 stratified split | **COMPLETED** | Verified zero split leakage, deterministic seeds, full class preservation. |
-| **Phase 3** | Training Pipeline Upgrade | `src/models/dr_models.py` (ViT, ResNet, Swin), `src/training/dr_trainer.py` (AdamW, Cosine LR, AMP, Macro-F1 early stopping), `config/dr_grading_config.yaml`, `scripts/train_dr_model.py` | **COMPLETED** | Forward pass shape `[B, 5]` verified on all architectures; end-to-end smoke test passed. |
-| **Phase 4** | Evaluation Metrics | `src/evaluation/dr_metrics.py`, `scripts/evaluate_dr_model.py`, Accuracy, Macro-F1, QWK, Referable DR Sens/Spec (Grade >= 2), AUROC, ECE, 95% Bootstrap CI, 4 automated artifacts | **COMPLETED** | Verified calculations, bootstrap CIs, and automated saving of `metrics.json`, `classification_report.csv`, `confusion_matrix.png`, `evaluation_summary.txt`. |
-| **Phase 5** | Explainable AI (XAI) | `src/explainability/dr_explainer.py`, ResNet Grad-CAM, ViT Attention Rollout & Token Grad-CAM, Swin Grad-CAM, Integrated Gradients, retinal heatmap overlay, `scripts/generate_explanations.py` | **COMPLETED** | Verified 2D heatmaps in `[0, 1]` for all methods; batch visualization saved to `outputs/explanations/`. |
-| **Phase 6** | Automated Tests & Verification | `tests/test_dr_pipeline.py`, full suite execution | **COMPLETED** | 27 / 27 unit & integration tests passing across entire codebase. |
-| **Phase 7** | Handover Documentation & Git Push | Upgraded `README.md`, `final_project_report.md`, daily logs, git commit & push to `main` | **COMPLETED** | Clean git tree, remote commit verified. |
+| **Track A** | Diabetic Retinopathy Severity Grading | 5-class DR (0=No, 1=Mild, 2=Mod, 3=Severe, 4=Proliferative) | ViT-B/16, ResNet-50, Swin Transformer | Stratified splits, QWK, Macro-F1, Attention Rollout, 4 artifacts |
+| **Track B** | Systemic Type 2 Diabetes Screening | Binary Risk (0=Non-diabetic, 1=Diabetic) | ResNet-50, Retinal ConvNeXt, RETFound Adapter, Multimodal Fusion | Provenance tiers, zero target leakage, DR=0 subgroup, Platt calibration, 95% Patient Bootstrap CI |
 
 ---
 
-## Work Package Status Table (Master Research Track)
+## Detailed Milestone Execution Status
 
-| WP ID | Work Package Title | Status | Dependencies | Acceptance & Verification Criteria | Next Action |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **WP1** | Research & Documentation Verification | **VERIFIED** | None | 5-class DR and diabetes screening objectives synchronized with clinical literature. | Complete. |
-| **WP2** | Dataset Ingestion & Integration | **VERIFIED** | WP1 | Ingestion adapters for APTOS 2019, BRSET, IDRiD, Messidor, local folders. | Complete. |
-| **WP3** | Data Validation & Quality Auditing | **VERIFIED** | WP2 | Integrity, dimensions, quality, perceptual dHash duplicate detection. | Complete. |
-| **WP4** | Patient Manifest & Leakage-Safe Splitting | **VERIFIED** | WP3 | Zero patient overlap between partitions; both eyes strictly grouped. | Complete. |
-| **WP5** | Preprocessing & Augmentation | **VERIFIED** | WP4 | Circular ROI crop, standardized resize, ImageNet normalization, train-only augment. | Complete. |
-| **WP6** | Baseline ML & Deep Learning | **VERIFIED** | WP5 | ViT-B/16, ResNet-50, Swin Transformer, ConvNeXt, foundation model stubs. | Complete. |
-| **WP7** | Cloud GPU Training Preparation | **VERIFIED** | WP6 | `colab_gpu_pipeline.ipynb` with Drive mount, GPU detection, checkpointing. | Complete. |
-| **WP8** | Generalization & Anti-Overfitting Engineering | **VERIFIED** | WP6 | Patient bootstrap 95% CIs, Platt calibration, DR=0 subgroup evaluation. | Complete. |
-| **WP9** | Explainable AI Development | **VERIFIED** | WP6 | Grad-CAM, Attention Rollout, Integrated Gradients, retinal overlay. | Complete. |
-| **WP10** | Application & Inference Improvements | **VERIFIED** | WP5, WP8, WP9 | Streamlit app with image check, calibrated score, explainability, disclaimers. | Complete. |
-| **WP11** | Testing, Security & Reproducibility | **VERIFIED** | WP1–WP10 | 27 unit tests, secret audit, gitignore safety checks. | Complete. |
-| **WP12** | Final Integration & Release | **VERIFIED** | WP11 | Clean git diff, final project report, successful push to main. | Complete. |
+| Milestone | Deliverables | Status | Verification Evidence |
+| :--- | :--- | :--- | :--- |
+| **Track A Pipeline** | `src/data/dr_dataset.py`, `src/models/dr_models.py`, `src/training/dr_trainer.py`, `src/evaluation/dr_metrics.py`, `src/explainability/dr_explainer.py` | **COMPLETED** | 20/20 Track A unit tests passing. Artifacts auto-generated in `outputs/dr_experiments/`. |
+| **Track B Provenance** | `src/data/label_provenance.py` enforcing 5 tiers: `LABORATORY_CONFIRMED`, `CLINICIAN_DOCUMENTED`, `SELF_REPORTED`, `UNKNOWN`, `INVALID_DR_INFERRED` | **COMPLETED** | Tested via `test_diabetes_label_provenance` and `test_target_leakage_assertion`. Prohibits DR grade inference and glucose leakage. |
+| **Track B Dataset** | `src/data/diabetes_dataset.py` with circular cropping, CLAHE, `dr0_only` filtering, non-leaking clinical covariate fusion | **COMPLETED** | Tested via `test_diabetes_dataset_and_dr0_filtering`. Preserves patient-level grouping and drops invalid provenance tiers. |
+| **Track B Models** | `src/models/diabetes_models.py` (`build_diabetes_model` factory: ResNet-50, ConvNeXt, Foundation ViT, Multimodal MLP fusion) | **COMPLETED** | Tested via `test_diabetes_models_forward`. Validated output shape `[B, 1]` on all backbones. |
+| **Track B Training** | `src/training/diabetes_trainer.py` (`DiabetesRiskTrainer` with BCEWithLogitsLoss, dynamic `pos_weight`, AdamW, Cosine LR, AUROC early stopping), `scripts/train_diabetes_model.py` | **COMPLETED** | Tested via `test_diabetes_trainer_smoke` and end-to-end CLI dry run (`train_diabetes_model.py --dry_run`). |
+| **Track B Evaluation** | `scripts/evaluate_diabetes_model.py`, `src/evaluation/classification_metrics.py`, `src/evaluation/confidence_intervals.py`, `src/evaluation/calibration.py` | **COMPLETED** | Tested via `test_diabetes_evaluation_and_calibration` and CLI execution (`evaluate_diabetes_model.py --synthetic`). Outputs metrics JSON, confusion matrix PNG, and summary report. |
+| **Track B Explainability** | `src/explainability/diabetes_explainer.py` (`DiabetesRiskExplainer` generating binary Grad-CAM and Integrated Gradients) | **COMPLETED** | Tested via `test_diabetes_explainer`. Verified heatmap normalization in `[0, 1]`. |
+| **Streamlit Interface** | `app/streamlit_app.py` dual-tab clinical dashboard | **COMPLETED** | Tab 1: 5-class DR Grading (APTOS Benchmark). Tab 2: Systemic Diabetes Risk with quality gate, abstention, Platt calibration, and DR=0 advisory. |
+| **Test Suite** | Comprehensive pytest coverage across all modules | **COMPLETED** | **34 / 34 passing tests** (`pytest tests/ -v` passed in 36.98s). |
+
+---
+
+## Verification Summary
+
+- **Automated Tests**: 34 passed, 0 failed, 0 warnings.
+- **Data Safety**: Verified zero target leakage (no HbA1c, FPG, OGTT or antidiabetic meds passed to models).
+- **Patient Independence**: Both eyes of each patient strictly partitioned to the same split.
+- **Clinical Distinction**: Track A (DR grading) and Track B (diabetes screening) strictly segregated.
