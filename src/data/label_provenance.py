@@ -28,7 +28,7 @@ class DiabetesProvenanceTier(str, Enum):
 # Biomarkers that constitute target leakage if present in input features
 LEAKAGE_BIOMARKER_COLUMNS = [
     "hba1c", "glycated_hemoglobin", "hba1c_pct", "hba1c_mmol_mol",
-    "fpg", "fasting_plasma_glucose", "fasting_blood_glucose", "fbg",
+    "fpg", "fasting_plasma_glucose", "fasting_blood_glucose", "fasting_glucose", "glucose", "fbg",
     "ogtt", "oral_glucose_tolerance_test", "random_blood_glucose", "rbg",
     "insulin_prescribed", "metformin_prescribed", "oral_hypoglycemics"
 ]
