@@ -12,15 +12,19 @@ ENV/
 # Data and Artifacts (PHI / Large files safety)
 data/raw/
 data/interim/
-data/processed/
+data/processed/*
+!data/processed/splits/
+!data/processed/splits/*.csv
+!data/processed/splits/*.json
 data/external_test/
 *.zip
 *.tar.gz
 *.7z
 *.csv
-*.parquet
+!data/processed/splits/*.csv
 !docs/literature_matrix.csv
 !docs/experiment_log.csv
+*.parquet
 
 # Model Checkpoints and Weights
 models/checkpoints/
@@ -40,6 +44,11 @@ outputs/*
 !outputs/metrics/*
 !outputs/milestone_1_*
 
+# Credentials & API keys
+kaggle.json
+*.token
+.kaggle/
+
 # Logs and system
 *.log
 .DS_Store
@@ -47,3 +56,13 @@ Thumbs.db
 .vscode/
 .idea/
 *.ipynb_checkpoints/
+
+# Exclude Research Papers
+*IEEE_RESEARCH_PAPER*
+*.pdf
+*.tex
+*compile_ieee_pdf*
+
+# Allow dataset splits
+!explainable_vit_screening/data/splits/*.csv
+

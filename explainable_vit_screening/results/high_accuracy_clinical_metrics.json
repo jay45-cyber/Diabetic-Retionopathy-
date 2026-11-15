@@ -1,0 +1,21 @@
+{
+  "multi_class_accuracy": 0.8336,
+  "quadratic_weighted_kappa": 0.9467,
+  "macro_f1": 0.8353,
+  "referable_dr_accuracy": 0.9973,
+  "referable_dr_sensitivity": 1.0,
+  "referable_dr_specificity": 0.9954,
+  "expected_calibration_error": 0.3187,
+  "optimal_ordinal_thresholds": [
+    0.7,
+    1.7,
+    2.325,
+    3.2
+  ],
+  "enhancements_applied": [
+    "Ben Graham Retinal Illumination Filter",
+    "ImageNet-21k Pre-Trained ViT-Base + ResNet Ensemble",
+    "Ordinal Expected Value Threshold Optimization",
+    "Test-Time Augmentation (TTA)"
+  ]
+}

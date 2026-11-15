@@ -1,0 +1,102 @@
+{
+  "pipeline_version": "1.0",
+  "dataset_name": "APTOS 2019 Blindness Detection",
+  "random_state": 42,
+  "split_ratios": {
+    "train": 0.7,
+    "val": 0.15,
+    "test": 0.15
+  },
+  "statistics": {
+    "train": {
+      "total_samples": 2563,
+      "classes": {
+        "0": {
+          "count": 1264,
+          "percentage": 49.32
+        },
+        "1": {
+          "count": 259,
+          "percentage": 10.11
+        },
+        "2": {
+          "count": 699,
+          "percentage": 27.27
+        },
+        "3": {
+          "count": 135,
+          "percentage": 5.27
+        },
+        "4": {
+          "count": 206,
+          "percentage": 8.04
+        }
+      }
+    },
+    "val": {
+      "total_samples": 550,
+      "classes": {
+        "0": {
+          "count": 271,
+          "percentage": 49.27
+        },
+        "1": {
+          "count": 56,
+          "percentage": 10.18
+        },
+        "2": {
+          "count": 150,
+          "percentage": 27.27
+        },
+        "3": {
+          "count": 29,
+          "percentage": 5.27
+        },
+        "4": {
+          "count": 44,
+          "percentage": 8.0
+        }
+      }
+    },
+    "test": {
+      "total_samples": 549,
+      "classes": {
+        "0": {
+          "count": 270,
+          "percentage": 49.18
+        },
+        "1": {
+          "count": 55,
+          "percentage": 10.02
+        },
+        "2": {
+          "count": 150,
+          "percentage": 27.32
+        },
+        "3": {
+          "count": 29,
+          "percentage": 5.28
+        },
+        "4": {
+          "count": 45,
+          "percentage": 8.2
+        }
+      }
+    }
+  },
+  "sha256_checksums": {
+    "dr_train.csv": "6defa58f5ea7c67e5c3abe4049691c6e49c29f985f0c3bf7c2dafe48064bd3aa",
+    "dr_val.csv": "ad2b088ee58eae004433be55c464d96be5e6caba8894ae21e90dd55dc2347d2d",
+    "dr_test.csv": "031dc1ac5634fdc9b23a586cca7b1c541e3fa4456a8d5655417e9235dbda8865"
+  },
+  "audit_summary": {
+    "images_available_locally": false,
+    "image_dir": null,
+    "total_images_scanned": 0,
+    "valid_images": 0,
+    "corrupt_images": 0,
+    "exact_duplicate_pairs": 0,
+    "perceptual_duplicate_pairs": 0,
+    "duplicate_clusters": 0
+  }
+}
