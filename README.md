@@ -1,4 +1,4 @@
-# Explainable Vision Transformer-Based Diabetic Retinopathy Screening for Rural India
+# Explainable AI for Diabetic Retinopathy Screening for Rural India
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/)
 [![PyTorch 2.15](https://img.shields.io/badge/pytorch-2.15.0-red.svg)](https://pytorch.org/)
